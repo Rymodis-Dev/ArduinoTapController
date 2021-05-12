@@ -56,12 +56,6 @@ void touchInterface(int inputPin, int outputPin, int panelNumber)
   //prevt = t;
 
   // LED点灯
-  if( t > threshold ){
-    //digitalWrite(13, HIGH);
-    sprintf(buf, "%d", panelNumber);
-    Serial.println(buf);
-    
-  } else {
-    //digitalWrite(13, LOW);
-  }  
+  if( t > threshold )
+    Serial.println(panelNumber);
 }
