@@ -1,10 +1,8 @@
-int prevt = 0;
-int t = 0;
-int threshold = 10;  // 電流の許容範囲（抵抗と調整）
+const int threshold = 25;  // 電流の許容範囲（抵抗と調整）
 
 void setup()
 {
-    Serial.begin(9600);
+  Serial.begin(9600);
     
   pinMode(2, OUTPUT);
   pinMode(3, INPUT);
@@ -20,27 +18,25 @@ void setup()
 
   pinMode(10, OUTPUT);
   pinMode(11, INPUT);
-
-  // LED
+  
   pinMode(12,OUTPUT);
   pinMode(13,INPUT);
 }
 
 void loop()
 { 
-    touchInterface(3, 2, 1);
-    touchInterface(5, 4, 2);
-    touchInterface(7, 6, 3);
-    touchInterface(9, 8, 4);
-    touchInterface(11, 10, 5);
-    touchInterface(13, 12, 6);
+    touch(3, 2, 1);
+    touch(5, 4, 2);
+    touch(7, 6, 3);
+    touch(9, 8, 4);
+    touch(11, 10, 5);
+    touch(13, 12, 6);
 }
 
-void touchInterface(int inputPin, int outputPin, int panelNumber)
+void touch(int inputPin, int outputPin, int panelNumber)
 {
-    char buf[50];
-    t = 0;
-
+  int t = 0;
+  
   // パルスの立ち上げ
   digitalWrite(outputPin, HIGH);
 
@@ -48,14 +44,9 @@ void touchInterface(int inputPin, int outputPin, int panelNumber)
   while (digitalRead(inputPin)!=HIGH) t++;
 
   // 放電するまで待つ
-  digitalWrite(outputPin, LOW);  
+  digitalWrite(outputPin, LOW);
   delay(3);
 
-  // ローパスフィルタ
-  //t = 0.8 * prevt + 0.2 * t;
-  //prevt = t;
-
-  // LED点灯
   if( t > threshold )
     Serial.println(panelNumber);
 }
