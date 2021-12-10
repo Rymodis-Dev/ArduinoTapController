@@ -1,4 +1,4 @@
-const int threshold = 25;  // 電流の許容範囲（抵抗と調整）
+const int threshold = 10;  // 電流の許容範囲（抵抗と調整）
 
 void setup()
 {
